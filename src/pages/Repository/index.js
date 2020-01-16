@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import api from '../../services/api';
 
-// import { Container } from './styles';
+import { Loading } from './styles';
 
 export default class Repository extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        repository: PropTypes.string,
+      }),
+    }).isRequired,
+  };
   state = {
     repository: {},
     issues: [],
@@ -30,6 +38,11 @@ export default class Repository extends Component {
   }
   render() {
     const { repository, issues, loading } = this.state;
+
+    if (loading) {
+      return <Loading>Carregando</Loading>;
+    }
+
     return <h1>Repository: {repository.name}</h1>;
   }
 }
