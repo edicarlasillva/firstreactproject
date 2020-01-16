@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
-
-import { Loading } from './styles';
+import Container from '../../components/Container/index';
+import { Loading, Owner } from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -43,6 +44,15 @@ export default class Repository extends Component {
       return <Loading>Carregando</Loading>;
     }
 
-    return <h1>Repository: {repository.name}</h1>;
+    return (
+      <Container>
+        <Owner>
+          <Link to="/">Voltar aos repositórios</Link>
+          <img src={repository.owner.avatar_url} alt={repository.owner.login} />
+          <h1>{repository.name}</h1>
+          <p>{repository.description}</p>
+        </Owner>
+      </Container>
+    );
   }
 }
